@@ -13,13 +13,11 @@ public class GameManager : MonoBehaviour
     public GameObject Player;          // Player Instance
     public GameObject Station;         // Main Player Station Instance
 
-    // UI principali //
-    public GameObject UpgradeMenuUI;   // UpgradeMenuUI Instance
-
     // sub-manager-modules
     private WavesManager wavesManager;
     private ScoreManager scoreManager;
     private UpgradesManager upgradesManager;
+    private MainHUDManager mainHUDManager; 
 
     // variabili relative alla meccanica di pausa (tasto ESC)
     public GameObject PauseMenuUI;       // Istanza dell'UI di pausa da mostrare quando pause = true
@@ -44,6 +42,7 @@ public class GameManager : MonoBehaviour
         wavesManager = GameObject.FindGameObjectWithTag("WavesManager").GetComponent<WavesManager>();
         scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
         upgradesManager = GameObject.FindGameObjectWithTag("UpgradesManager").GetComponent<UpgradesManager>();
+        mainHUDManager = GameObject.FindGameObjectWithTag("MainHUD").GetComponent<MainHUDManager>();
     }
 
     void initializeUIsSavedStatus()
@@ -123,11 +122,6 @@ public class GameManager : MonoBehaviour
         return PauseMenuUI;
     }
 
-    public GameObject getUpgradeMenuUI()
-    {
-        return UpgradeMenuUI;
-    }
-
     public WavesManager getWavesManager()
     {
         return wavesManager;
@@ -136,5 +130,10 @@ public class GameManager : MonoBehaviour
     public ScoreManager getScoreManager()
     {
         return scoreManager;
+    }
+
+    public MainHUDManager getMainHUDManager()
+    {
+        return mainHUDManager;
     }
 }

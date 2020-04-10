@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public int maxLife = 10;                 // Vita massima del player
     public float maxAllowedDistanceToBase;   // Massima distanza consentita dalla base.
     public GameObject PlayerBase;            // Istanza della main base
+    public int cashPerHeal;                  // Quanto costa curare un hit-point
 
     // VARIABILI DI MOVIMENTO //
     public float movementSpeed;           // Fattore moltiplicativo della velocità velocità.
@@ -24,20 +25,19 @@ public class Player : MonoBehaviour
     Coroutine MainWeaponFireCoroutine;        // Reference alla coroutine di shooting della main weapon.
     public GameObject shootingPoint;          // Punto dove istanziare i proiettili sparati
 
-    // UI REFERENCES //
-    public Text LifeUI;
-    public GameObject maxDistanceUI;
-    public Text abortMissionUI;
+    // Variabili relative alla meccanica AbortMission (massima distanza dalla base)
     Coroutine abortMission = null;
-    public int returnMaxTime = 10;            // abort mission timer
+    public int returnMaxTime = 10;            // tempo a disposizione per il player di tornare in missione prima del game over
 
-    public int cashPerHeal; // NOT USED JET? BHOO
+
 
     // ALTRE VARIABILI //
+    GameManager gameManager;
 
 
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         UpdateLifeUI(); // Inizializza l'UI della vita
     }
 
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
     // Update Life UI
     public void UpdateLifeUI()
     {
-        LifeUI.text = "LIFE: " + life+"/"+ maxLife;
+        gameManager.getMainHUDManager().updatePlayerLifeUI(life, maxLife);
     }
 
     // Controlla la distanza del player rispetto alla base, nel caso ecceda, attiva il processo di "abortMission"
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
 
         if (distance > maxAllowedDistanceToBase)
         {
-            maxDistanceUI.SetActive(true);
+            gameManager.getMainHUDManager().getDistanceReachedUI().SetActive(true);
             if (abortMission == null)
             {
                 abortMission = StartCoroutine(AbortMission());
@@ -124,11 +124,11 @@ public class Player : MonoBehaviour
         }
         else
         {
-            maxDistanceUI.SetActive(false);
-            if(abortMission != null)
+            gameManager.getMainHUDManager().getDistanceReachedUI().SetActive(false);
+            if (abortMission != null)
             {
                 StopCoroutine(abortMission);
-                abortMissionUI.text = "" + returnMaxTime;
+                gameManager.getMainHUDManager().updateAbortMissionTimer(returnMaxTime);
                 abortMission = null;
             }
         }
@@ -140,7 +140,7 @@ public class Player : MonoBehaviour
         for(int i=0; i <= 10; i++)
         {
             yield return new WaitForSeconds(1);
-            abortMissionUI.text = ""+ (returnMaxTime - i);
+            gameManager.getMainHUDManager().updateAbortMissionTimer(returnMaxTime - i);
         }
 
         Debug.Log("MissionAborted!");

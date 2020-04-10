@@ -12,45 +12,24 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     // VARIABILI GENERALI //
-    public int actualScore = 0;
-    public int cash = 0;
+    private int actualScore = 0;
+    private int cash = 0;
 
-    // UI - relativi allo score e al denaro //
-    public Text ScoreUI;
-    public Text CashUI;
+    private GameManager gameManager;        // Game Manager Instance
 
     void Start()
-    { 
+    {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
-        UpdateScoreUI();
-        UpdateCashUI();
+        // Update UIs
+        gameManager.getMainHUDManager().updateCashUI(cash);
+        gameManager.getMainHUDManager().updateScoreUI(actualScore);
     }
 
-    // UI methods
-    void UpdateScoreUI()
-    {
-        ScoreUI.text = "SCORE: " + actualScore;
-    }
-
-    void UpdateCashUI()
-    {
-        CashUI.text = "CASH: " + cash;
-    }
-
-    public Text getScoreUI()
-    {
-        return ScoreUI;
-    }
-
-    public Text getCashUI()
-    {
-        return CashUI;
-    }
-
-    // Score methods
+    // Score methods (getters, setters etc.)
     public int getActualScore()
     {
         return actualScore;
@@ -70,7 +49,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    // cash methods
+    // cash methods (getters, setters etc.)
     public int getActualCash()
     {
         return cash;
