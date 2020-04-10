@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * Gestisce il generico oggetto distruttibile, filtra le collisioni da non considerare come "DANNO".
+ * Gestisce il generico oggetto distruttibile.
+ * --> filtra le collisioni da non considerare come danno.
+ *      --> ad esempio collisione con la playerhitbox -> 0 danno,
+ *      --> collisione proiettile -> danno
  */
 
 public class Destroyable : MonoBehaviour {
 
-    [SerializeField] int life = 1;
-    [SerializeField] bool immortal = false;
-    [SerializeField] int scoreValue = 10;
-    [SerializeField] int cashValue = 1;
+    public int life = 1;
+    public bool immortal = false;
+    public int scoreValue = 10;
+    public int cashValue = 1;
+
     private GameObject scoreManager;
 
 	void Start () {
@@ -21,6 +25,8 @@ public class Destroyable : MonoBehaviour {
 	void Update () {	
 	}
 
+    // TO REWORK?
+    // take dame from x =  true/false for each tag
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (immortal != true)

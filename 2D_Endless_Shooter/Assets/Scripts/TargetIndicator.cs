@@ -9,9 +9,9 @@ using UnityEngine;
  */
 public class TargetIndicator : MonoBehaviour {
 
-    [SerializeField] GameObject Target;
-    [SerializeField] bool enable;
-    [SerializeField] float hideRange;
+    public GameObject Target;
+    public bool enable;
+    public float hideRange;
 
 	void Start () {
 		

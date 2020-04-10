@@ -7,20 +7,24 @@ using UnityEngine;
  */
 public class Wave : MonoBehaviour {
 
-    [SerializeField] int numberOfSpawnPoints = 20;          // Numero di spawnPoints da generare
+    public int numberOfSpawnPoints = 20;          // Numero di spawnPoints da generare
     private GameObject[] SpawnPoints;                       // Gli spawn points generati e memorizzati in array
     public GameObject spawnPointPrefab;                     // Il prefab di spawnpoints da generare/usare
-    [SerializeField] int wavePointsReward = 100;            // Valore in punti/score/valuta che il player riceve a fine wave
-    [SerializeField] GameObject[] AllowedEnemyToSpawn;      // Tipologie di nemici che compongono la wave
-    [SerializeField] int waveDifficulty;                    // Difficoltà totale della wave
-    private int reachedDifficulty;                          // Difficoltà raggiunta con in nemici spawnati fino ad un certo istante di tempo
-    [SerializeField] float timeBetweenSpawns;               // Tempo tra 1 spawn e il successivo
+
+    public int wavePointsReward = 100;            // Valore in punti/score/valuta che il player riceve a fine wave
+
+    public GameObject[] AllowedEnemyToSpawn;      // Tipologie di nemici che possono comporre la wave
+    public int waveDifficulty;                    // Difficoltà totale della wave
+
+    private int reachedDifficulty;                          // Difficoltà raggiunta con in nemici spawnati fino ad un certo istante di tempo durante la generazione
+
+    public float timeBetweenSpawns;               // Tempo tra uno spawn e il successivo
     private bool spawnProcessIsActive = true;               // true se sta ancora spawnando i nemici.
 
-    [SerializeField] bool debug = false;                    // Debug = true --> console debugging
+    public bool debug = false;                    // Debug = true --> console debugging
 
     // Child sub-parents //
-    public GameObject spawn_parent;
+    public GameObject spawns_parent;
     public GameObject enemies_parent;
 
     void Start () {
@@ -40,7 +44,7 @@ public class Wave : MonoBehaviour {
         {
             GameObject instantiated = Instantiate(spawnPointPrefab, transform.position, transform.rotation) as GameObject;
             SpawnPoints[i] = instantiated;
-            instantiated.transform.SetParent(spawn_parent.transform);
+            instantiated.transform.SetParent(spawns_parent.transform);
         }
         if (debug)
         {

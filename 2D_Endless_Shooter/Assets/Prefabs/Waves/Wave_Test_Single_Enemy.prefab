@@ -84,7 +84,7 @@ MonoBehaviour:
   waveDifficulty: 1
   timeBetweenSpawns: 0.1
   debug: 0
-  spawn_parent: {fileID: 1864898775805320}
+  spawns_parent: {fileID: 1864898775805320}
   enemies_parent: {fileID: 1692557832669698}
 --- !u!1 &1864898775805320
 GameObject:

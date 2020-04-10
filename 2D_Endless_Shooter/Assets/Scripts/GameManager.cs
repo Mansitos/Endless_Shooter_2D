@@ -9,20 +9,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private bool paused;  // bool value for paused or unpaused game
-    [SerializeField] GameObject Player;          // Player Instance
-    [SerializeField] GameObject Station;         // Station Instance
-    [SerializeField] GameObject PauseMenu;       // PauseMenu UI Instance
-    [SerializeField] GameObject UpgradeMenuUI;   // UpgradeMenuUI Instance
-    [SerializeField] GameObject NextWaveUI;      // NextWaveUI Instance
-    [SerializeField] GameObject HealsManager;    // HealsManager Instance
+    // VARIABILI PRINCIPALI //
+    public GameObject Player;          // Player Instance
+    public GameObject Station;         // Main Player Station Instance
 
-    [SerializeField] GameObject[] UIs_ToHideOnPause;
-    private bool[] UIs_SavedStatus;
+    // UI principali //
+    public GameObject UpgradeMenuUI;   // UpgradeMenuUI Instance
+
+    // sub-manager-modules
+    private WavesManager wavesManager;
+    private ScoreManager scoreManager;
+    private UpgradesManager upgradesManager;
+
+    // variabili relative alla meccanica di pausa (tasto ESC)
+    public GameObject PauseMenuUI;       // Istanza dell'UI di pausa da mostrare quando pause = true
+    private bool paused;                 // indica se il gioco è o meno in pausa
+    public GameObject[] UIs_ToHideOnPause;  // lista degli UI da nascondere durante la pausa
+    private bool[] UIs_SavedStatus;         // array dove salvare lo stato degli UI prima di pausare. Se l'UI x è attivo, e pausiamo, esso verrà nascosto, ma quando torneremo in game, l'UI x andrà ripristinato allo stato precedente (che deve quindi essere salvato)
 
     void Start()
     {
-        UIs_SavedStatus = new bool[UIs_ToHideOnPause.Length];
+        getSubManagerModulesIstances();
+        initializeUIsSavedStatus();
     }
 
     void Update()
@@ -30,7 +38,20 @@ public class GameManager : MonoBehaviour
         checkForPauseRequest();
     }
 
-    // Implementa il meccanismo di Pausa, il parametro bool value indica se il gioco deve o non deve essere pausato.
+    // ottiene le istanze dei sotto-moduli di games manager: wavesmanager, scoremanager etc. etc.
+    void getSubManagerModulesIstances()
+    {
+        wavesManager = GameObject.FindGameObjectWithTag("WavesManager").GetComponent<WavesManager>();
+        scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
+        upgradesManager = GameObject.FindGameObjectWithTag("UpgradesManager").GetComponent<UpgradesManager>();
+    }
+
+    void initializeUIsSavedStatus()
+    {
+        UIs_SavedStatus = new bool[UIs_ToHideOnPause.Length];
+    }
+
+    // Implementa il meccanismo di pausa, il parametro "bool value" indica se il gioco deve o non deve essere pausato.
     void PauseMechanic(bool value)
     {
         if (value)
@@ -45,56 +66,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Ritorna lo stato del gioco, paused or unpaused
     bool isGamePause()
     {
         return paused;
     }
 
-    // Esegue un check su KeyCode.Escape per vedere se lo user ha richiesto un pause/unpause
+    // Viene chiamato ciclicamente su Update().
+    // Esegue un check su (KeyCode.Escape) per controllare se lo user ha richiesto un pause/unpause
     void checkForPauseRequest()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))   // se il player ha premuto ESC (pausa)
         {
-            // IF 
-            if(paused == false)
+            if(paused == false) // se non era in pausa....
             {
                 paused = true;
                 for(int i = 0; i< UIs_ToHideOnPause.Length; i++)
                 {
-                    UIs_SavedStatus[i] = UIs_ToHideOnPause[i].activeSelf;
-                    UIs_ToHideOnPause[i].SetActive(false);
+                    UIs_SavedStatus[i] = UIs_ToHideOnPause[i].activeSelf;   // salva il vecchio stato degli UI
+                    UIs_ToHideOnPause[i].SetActive(false);                  // nascondili tutti
                 }
 
-                PauseMenu.SetActive(true);
+                // attiva il menu di pausa e nascondi il player.
+                PauseMenuUI.SetActive(true);
                 Player.SetActive(false);
 
             }
-            else if(paused == true)
+            else if(paused == true) // se era in pausa....
             {
                 paused = false;
                 for (int i = 0; i < UIs_ToHideOnPause.Length; i++)
                 {
-                    UIs_ToHideOnPause[i].SetActive(UIs_SavedStatus[i]);
+                    UIs_ToHideOnPause[i].SetActive(UIs_SavedStatus[i]);     // ripristina lo stato degli UI (se ad esempio prima di pausa c'era l'UI nextwave aperto, va riaperto)
                 }
-                PauseMenu.SetActive(false);
+
+                // disabilità l'UI del menù pausa e ripristina il player.
+                PauseMenuUI.SetActive(false);
                 Player.SetActive(true);
             }
         }
     }
 
-    public void EnableDisableUpgradeMenu(bool value)
-    {
-        UpgradeMenuUI.SetActive(value);
-        NextWaveUI.SetActive(!value);
-        Player.SetActive(!value);
-        if(value == true)
-        {
-            HealsManager.GetComponent<HealsManager>().updateVariables();
-            HealsManager.GetComponent<HealsManager>().updateButtonsActive();
-        }
-        
-    }
-
+    // LIST OF GETTER
     public GameObject getPlayerInstance()
     {
         return Player;
@@ -105,5 +118,23 @@ public class GameManager : MonoBehaviour
         return Station;
     }
 
+    public GameObject getPauseMenuUI()
+    {
+        return PauseMenuUI;
+    }
 
+    public GameObject getUpgradeMenuUI()
+    {
+        return UpgradeMenuUI;
+    }
+
+    public WavesManager getWavesManager()
+    {
+        return wavesManager;
+    }
+
+    public ScoreManager getScoreManager()
+    {
+        return scoreManager;
+    }
 }

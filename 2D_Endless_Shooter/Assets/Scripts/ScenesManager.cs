@@ -5,18 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
-    {
-        
+    {    
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        
+    {   
     }
 
+    // carica la scena passata come parametro: attenzione alla correttezza della stringa
     public void loadScenebyName(string scene)
     {
         SceneManager.LoadScene(scene);
@@ -24,7 +21,7 @@ public class ScenesManager : MonoBehaviour
     
     public void quitApplication()
     {
-        Debug.Log("Quit app");
+        Debug.Log("Quitting application...");
         Application.Quit();
     }
 }

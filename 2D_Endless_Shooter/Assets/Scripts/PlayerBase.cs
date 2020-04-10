@@ -9,12 +9,12 @@ using UnityEngine.UI;
 
 public class PlayerBase : MonoBehaviour {
 
-    [SerializeField] int life = 100;        // Vita attuale
-    [SerializeField] int maxLife = 100;     // Vita massima
-    [SerializeField] bool immortal = false;     // Se true, la base è immortale, per debugging e testing
-    [SerializeField] Text baseLifeUI;           // Istanza UI per la vita della base.
-    [SerializeField] int cashPerHeal;
-    [SerializeField] GameObject SafeZone;
+    public int life = 100;        // Vita attuale
+    public int maxLife = 100;     // Vita massima
+    public bool immortal = false;     // Se true, la base è immortale, per debugging e testing
+    public Text baseLifeUI;           // Istanza UI per la vita della base.
+    public int cashPerHeal;
+    public GameObject SafeZone;
 
 	void Start () {
 	}

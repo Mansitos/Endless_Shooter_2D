@@ -27,29 +27,29 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     // GENERAL //
-    [SerializeField] public int difficultyValue = 1;
+    public int difficultyValue = 1;
 
     // TARGET VARIABLES //
-    [SerializeField] bool targetIsPlayer = true;
-    [SerializeField] bool targetIsBase = false;
+    public bool targetIsPlayer = true;
+    public bool targetIsBase = false;
     private GameObject target = null;
-    [SerializeField] bool watchTarget = true;
-    [SerializeField] float moveSpeed = 1f;
-    [SerializeField] float nearTargetSpeed = 0.5f;
-    [SerializeField] float minDistanceToTarget = 1f;
-    [SerializeField] float nearTargetDistance = 3f;
-    [SerializeField] bool isStopped = false;
+    public bool watchTarget = true;
+    public float moveSpeed = 1f;
+    public float nearTargetSpeed = 0.5f;
+    public float minDistanceToTarget = 1f;
+    public float nearTargetDistance = 3f;
+    public bool isStopped = false;
 
     // SHOOTING VARIABLES //
-    [SerializeField] bool canShoot;
-    [SerializeField] GameObject weaponProjectile;
-    [SerializeField] float fireRate;
+    public bool canShoot;
+    public GameObject weaponProjectile;
+    public float fireRate;
     Coroutine firing;
-    [SerializeField] bool isFiring = false;
-    [SerializeField] float minFiringDistance = 2f;
+    public bool isFiring = false;
+    public float minFiringDistance = 2f;
 
     // DEBUG //
-    [SerializeField] bool distancesColorsDebug = false;
+    public bool distancesColorsDebug = false;
 
 
 	void Start () {	

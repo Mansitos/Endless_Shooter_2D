@@ -9,29 +9,29 @@ using UnityEngine.UI;
  */
 public class Player : MonoBehaviour
 {
-    // GENERALS VARIABLES //
-    [SerializeField] int life = 10;             // Vita, numero di hit da subire.
-    [SerializeField] int maxLife = 10;
-    [SerializeField] float maxDistanceToBase;   // Massima distanza consentita dalla base.
-    [SerializeField] GameObject PlayerBase;     // Istanza della main base
+    // VARAIBILI GENERALE //
+    public int life = 10;                    // Vita dell'entità player (hitpoints)
+    public int maxLife = 10;                 // Vita massima del player
+    public float maxAllowedDistanceToBase;   // Massima distanza consentita dalla base.
+    public GameObject PlayerBase;            // Istanza della main base
 
-    // MOVEMENTS //
-    [SerializeField] float moveSpeed;           // Fattore moltiplicativo velocità.
+    // VARIABILI DI MOVIMENTO //
+    public float movementSpeed;           // Fattore moltiplicativo della velocità velocità.
 
     // MAIN WEAPON //
-    [SerializeField] GameObject mainWeaponProjectile;   // Istanza proiettile da usare della main weapon.
-    [SerializeField] float mainWeaponFireRate;          // Rateo di fuoco della main weapon. in RPM (colpi al min).
-    Coroutine MainWeaponFireCoroutine;                  // Referenza alla coroutine di shooting della main weapon.
-    [SerializeField] GameObject shootingPoint;          // where to instantiate object.
+    public GameObject mainWeaponProjectile;   // Prefab del proiettile da usare con la main weapon.
+    public float mainWeaponFireRate;          // Rateo di fuoco della main weapon. in RPM (colpi al min).
+    Coroutine MainWeaponFireCoroutine;        // Reference alla coroutine di shooting della main weapon.
+    public GameObject shootingPoint;          // Punto dove istanziare i proiettili sparati
 
     // UI REFERENCES //
-    [SerializeField] Text LifeUI;
-    [SerializeField] GameObject maxDistanceUI;
-    [SerializeField] Text abortMissionUI;
+    public Text LifeUI;
+    public GameObject maxDistanceUI;
+    public Text abortMissionUI;
     Coroutine abortMission = null;
-    [SerializeField] int returnMaxTime = 10;            // abort mission timer
+    public int returnMaxTime = 10;            // abort mission timer
 
-    [SerializeField] int cashPerHeal;
+    public int cashPerHeal; // NOT USED JET? BHOO
 
     // ALTRE VARIABILI //
 
@@ -48,23 +48,22 @@ public class Player : MonoBehaviour
         checkMaxDistance();
     }
 
-    // Funzione utilizzata in Update.
+    // Funzione utilizzata in Update per la gestione del movement system.
     // Move() permette di spostare il player nell'asse delle x e y.
-    // Inoltre gestisce la rotazione
+    // Inoltre gestisce la rotazione della visuale
     private void Move()
     {
         // X & Y MOVEMENTS ----------------------------------------------------------------------
-        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-        // Debug.Log(deltaX + " - " + deltaY);
+        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
+        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
 
         var newXPos = transform.position.x + deltaX;
         var newYPos = transform.position.y + deltaY;
 
         transform.position = new Vector2(newXPos, newYPos);
-        //------------------------------------------------------------------------------------------
-        // Z ROTATIONS MOVEMENTS // FOLLOW MOUSE CURSOR
 
+
+        // Z ROTATIONS MOVEMENTS // FOLLOW MOUSE CURSOR
         var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -107,7 +106,7 @@ public class Player : MonoBehaviour
     // Update Life UI
     public void UpdateLifeUI()
     {
-        LifeUI.text = "LIFE: " + life+"/"+maxLife;
+        LifeUI.text = "LIFE: " + life+"/"+ maxLife;
     }
 
     // Controlla la distanza del player rispetto alla base, nel caso ecceda, attiva il processo di "abortMission"
@@ -115,7 +114,7 @@ public class Player : MonoBehaviour
     {
         float distance = Mathf.Abs(Vector2.Distance(PlayerBase.transform.position, transform.position));
 
-        if (distance > maxDistanceToBase)
+        if (distance > maxAllowedDistanceToBase)
         {
             maxDistanceUI.SetActive(true);
             if (abortMission == null)

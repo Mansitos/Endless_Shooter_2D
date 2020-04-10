@@ -11,19 +11,19 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    [SerializeField] float speed = 1;       // 
-    [SerializeField] float life_time = 10;  // 
-    [SerializeField] int damageValue = 1;   // 
+    public float speed = 1;
+    public float life_time = 10;
+    public int damageValue = 1;   
 
 	void Start(){
         Move();
-        Destroy(this.gameObject,life_time); // L'oggetto viene distrutto dopo "life_time" tempo.
+        Destroy(this.gameObject,life_time); // Starta la distruzione temporizzata
 	}
 	
 	void Update(){
 	}
 
-    // Chiamato in start, attiva il movimento del proiettile applicandogli la giusta componente di velocità sull'asse delle X e Y, calcolata mediante sen e cos.
+    // Chiamato in start, attiva il movimento del proiettile applicandogli la giusta componente di velocità sull'asse delle X e Y in base all'orientamento, calcolata mediante sen e cos.
     private void Move()
     {
         float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour {
     public int GetDamageValue()
     {return damageValue;
     }
+
     // returns speed value of the bullet
     public float GetSpeed()
     {return speed;}

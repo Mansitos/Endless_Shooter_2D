@@ -6,17 +6,19 @@ using UnityEngine.UI;
 /*
  * Script per il sottomodulo ScoreManager del GameManager.
  * 
+ * Dovrebbe essere un child di GameManager
  */
 
 public class ScoreManager : MonoBehaviour
 {
+    // VARIABILI GENERALI //
+    public int actualScore = 0;
+    public int cash = 0;
 
-    [SerializeField] Text ScoreUI;
-    [SerializeField] int actualScore;
+    // UI - relativi allo score e al denaro //
+    public Text ScoreUI;
+    public Text CashUI;
 
-    [SerializeField] Text CashUI;
-    [SerializeField] int cash;
-   
     void Start()
     { 
     }
@@ -27,6 +29,7 @@ public class ScoreManager : MonoBehaviour
         UpdateCashUI();
     }
 
+    // UI methods
     void UpdateScoreUI()
     {
         ScoreUI.text = "SCORE: " + actualScore;
@@ -37,6 +40,17 @@ public class ScoreManager : MonoBehaviour
         CashUI.text = "CASH: " + cash;
     }
 
+    public Text getScoreUI()
+    {
+        return ScoreUI;
+    }
+
+    public Text getCashUI()
+    {
+        return CashUI;
+    }
+
+    // Score methods
     public int getActualScore()
     {
         return actualScore;
@@ -56,6 +70,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    // cash methods
     public int getActualCash()
     {
         return cash;
@@ -68,7 +83,6 @@ public class ScoreManager : MonoBehaviour
 
     public void removeCash(float value)
     {
-
         cash = cash - (int) value;
         if(cash < 0)
         {
