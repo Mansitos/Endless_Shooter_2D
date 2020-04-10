@@ -505,7 +505,7 @@ RectTransform:
   m_GameObject: {fileID: 193946057}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1638185752}
   - {fileID: 616806789}
@@ -514,7 +514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -3.8190918, y: 0.68200684}
+  m_AnchoredPosition: {x: 314, y: -329}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &193946059
@@ -619,9 +619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 616806790}
+  costTextUI: {fileID: 616806790}
   myPercentage: 1
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 1
   healsBase: 0
 --- !u!1 &195763219
@@ -1531,7 +1531,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 2
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -3013,7 +3013,7 @@ RectTransform:
   m_GameObject: {fileID: 640582613}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 966094242}
   - {fileID: 1013433668}
@@ -3022,7 +3022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -5.127075, y: -0.24291992}
+  m_AnchoredPosition: {x: 150, y: -446}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &640582615
@@ -3037,9 +3037,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 1013433669}
+  costTextUI: {fileID: 1013433669}
   myPercentage: 0.25
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 0
   healsBase: 1
 --- !u!114 &640582616
@@ -3238,7 +3238,7 @@ RectTransform:
   m_GameObject: {fileID: 673660209}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1178166899}
   - {fileID: 87043147}
@@ -3247,7 +3247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -5.127075, y: 1.2651367}
+  m_AnchoredPosition: {x: 150, y: -260}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673660211
@@ -3352,9 +3352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 87043148}
+  costTextUI: {fileID: 87043148}
   myPercentage: 0.25
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 1
   healsBase: 0
 --- !u!1 &708303907
@@ -3896,8 +3896,9 @@ Transform:
   m_GameObject: {fileID: 884998122}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1026958037}
   m_Father: {fileID: 708303908}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3915,7 +3916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreManager: {fileID: 1773494335}
   HealButtons:
-  - {fileID: 0}
+  - {fileID: 193946057}
   - {fileID: 1090076847}
   - {fileID: 1402413572}
   - {fileID: 673660209}
@@ -3924,6 +3925,7 @@ MonoBehaviour:
   - {fileID: 2131808925}
   - {fileID: 640582613}
   notEnoughCashUI: {fileID: 2065590905}
+  HealsUI: {fileID: 1026958036}
 --- !u!1 &886095481
 GameObject:
   m_ObjectHideFlags: 0
@@ -4809,7 +4811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1026958037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4829,8 +4831,8 @@ RectTransform:
   - {fileID: 2078667648}
   - {fileID: 2131808926}
   - {fileID: 640582614}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 884998123}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4887,7 +4889,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 10
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -5060,7 +5062,7 @@ RectTransform:
   m_GameObject: {fileID: 1090076847}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 2018436883}
   - {fileID: 859599377}
@@ -5069,7 +5071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -5.127075, y: 0.68200684}
+  m_AnchoredPosition: {x: 150, y: -329}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1090076849
@@ -5174,9 +5176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 859599378}
+  costTextUI: {fileID: 859599378}
   myPercentage: 0.75
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 1
   healsBase: 0
 --- !u!1 &1178166898
@@ -5360,7 +5362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  maxLife: 50
+  maxLife: 155
   immortal: 0
   baseLifeUI: {fileID: 637791194}
   cashPerHeal: 2
@@ -6004,7 +6006,7 @@ RectTransform:
   m_GameObject: {fileID: 1402413572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1868296004}
   - {fileID: 1008109006}
@@ -6013,7 +6015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -3.8190918, y: 1.2651367}
+  m_AnchoredPosition: {x: 312, y: -260.00003}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1402413574
@@ -6118,9 +6120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 1008109007}
+  costTextUI: {fileID: 1008109007}
   myPercentage: 0.5
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 1
   healsBase: 0
 --- !u!4 &1419683072 stripped
@@ -6971,7 +6973,7 @@ RectTransform:
   m_GameObject: {fileID: 1641025861}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1968086442}
   - {fileID: 1304827131}
@@ -6980,7 +6982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -3.8190918, y: -0.82592773}
+  m_AnchoredPosition: {x: 314, y: -514.9999}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1641025863
@@ -6995,9 +6997,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 1304827132}
+  costTextUI: {fileID: 1304827132}
   myPercentage: 1
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 0
   healsBase: 1
 --- !u!114 &1641025864
@@ -7604,6 +7606,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1705bb6b5c7132a4195452e87f63ad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actualScore: 100
+  cash: 100
 --- !u!1 &1790413509
 GameObject:
   m_ObjectHideFlags: 0
@@ -9080,7 +9084,7 @@ RectTransform:
   m_GameObject: {fileID: 2078667647}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 959965893}
   - {fileID: 1306333032}
@@ -9089,7 +9093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -5.127075, y: -0.82592773}
+  m_AnchoredPosition: {x: 150, y: -514.9999}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078667649
@@ -9104,9 +9108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 1306333033}
+  costTextUI: {fileID: 1306333033}
   myPercentage: 0.75
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 0
   healsBase: 1
 --- !u!114 &2078667650
@@ -9305,7 +9309,7 @@ PrefabInstance:
     - target: {fileID: 114339816387628794, guid: 08bf612e73e05d24194b578f9a76d336,
         type: 3}
       propertyPath: life
-      value: 500
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114339816387628794, guid: 08bf612e73e05d24194b578f9a76d336,
         type: 3}
@@ -9326,6 +9330,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxAllowedDistanceToBase
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339816387628794, guid: 08bf612e73e05d24194b578f9a76d336,
+        type: 3}
+      propertyPath: maxLife
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08bf612e73e05d24194b578f9a76d336, type: 3}
@@ -9540,7 +9549,7 @@ RectTransform:
   m_GameObject: {fileID: 2131808925}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1998509521}
   - {fileID: 917557766}
@@ -9549,7 +9558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -3.8190918, y: -0.24291992}
+  m_AnchoredPosition: {x: 312, y: -446}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131808927
@@ -9564,9 +9573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5ec6b61be0d904388b46f5fb327e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 917557767}
+  costTextUI: {fileID: 917557767}
   myPercentage: 0.5
-  HealsManager: {fileID: 884998122}
+  healsManager: {fileID: 884998122}
   healsPlayer: 0
   healsBase: 1
 --- !u!114 &2131808928

@@ -12,8 +12,8 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     // VARIABILI GENERALI //
-    private int actualScore = 0;
-    private int cash = 0;
+    public int actualScore = 0;
+    public int cash = 0;
 
     private GameManager gameManager;        // Game Manager Instance
 

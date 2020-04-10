@@ -5,50 +5,50 @@ using UnityEngine.UI;
 
 public class HealButton : MonoBehaviour
 {
-    [SerializeField] Text costText;
+    public Text costTextUI;
     private float cost;
-    [SerializeField] float myPercentage;
-    [SerializeField] GameObject HealsManager;
-    private HealsManager hm;
-    [SerializeField] bool healsPlayer;
-    [SerializeField] bool healsBase;
+    public float myPercentage;
+    public GameObject healsManager;
+    public bool healsPlayer;
+    public bool healsBase;
+
+    private GameManager gameManager;
 
     void Start()
     {
-        hm = HealsManager.GetComponent<HealsManager>();
-
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         CalculateCost();
         UpdateIsActive();
-
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        
+    {  
     }
 
-    void updateCostText()
+    void updateCostTextUI()
     {
-        costText.text = "COST:" + cost;
+        costTextUI.text = "COST:" + cost;
     }
 
     public void CalculateCost()
     {
-        hm.updateVariables();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        healsManager.GetComponent<HealsManager>().updateVariables();
 
         if (healsPlayer) {
-            float playerMaxLife = hm.getPlayerMaxLife();
-            float lifeToHeal = playerMaxLife*myPercentage - hm.getPlayerLife();
-            cost = lifeToHeal * hm.getPlayer().GetComponent<Player>().getPricePerHeal();
+            Player player = gameManager.getPlayerInstance().GetComponent<Player>();
+            float playerMaxLife = player.getMaxLife();
+            float lifeToHeal = playerMaxLife * myPercentage - player.getLife();
+            cost = lifeToHeal * player.getPricePerHeal();
         }else if (healsBase)
         {
-            float BaseMaxLife = hm.getBaseMaxLife();
-            float lifeToHeal = BaseMaxLife * myPercentage - hm.getBaseLife();
-            cost = lifeToHeal * hm.getStation().GetComponent<PlayerBase>().getPricePerHeal();
+            PlayerBase station = gameManager.getStationInstance().GetComponent<PlayerBase>();
+            float BaseMaxLife = station.getMaxLife();
+            float lifeToHeal = BaseMaxLife * myPercentage - station.getLife();
+            cost = lifeToHeal * station.getPricePerHeal();
         }
 
-        updateCostText();
+        updateCostTextUI();
 
     }
 
@@ -56,57 +56,60 @@ public class HealButton : MonoBehaviour
     {
         if (healsPlayer) // Update HealsPlayer Buttons
         {
-            float playerLifePercentage = hm.getPlayerLifePercentage();
+            float playerLifePercentage = healsManager.GetComponent<HealsManager>().getPlayerLifePercentage();
             if(playerLifePercentage >= myPercentage)
             {
                 this.gameObject.GetComponent<Button>().interactable = false;
-                this.costText.gameObject.SetActive(false);
+                this.costTextUI.gameObject.SetActive(false);
             }
             else
             {
                 this.gameObject.GetComponent<Button>().interactable = true;
-                this.costText.gameObject.SetActive(true);
+                this.costTextUI.gameObject.SetActive(true);
             }
         }
         else if (healsBase) // Update HealsStation Buttons
         {
-            float StationLifePercentage = hm.getStationLifePercentage();
+            float StationLifePercentage = healsManager.GetComponent<HealsManager>().getStationLifePercentage();
             if (StationLifePercentage >= myPercentage)
             {
                 this.gameObject.GetComponent<Button>().interactable = false;
-                this.costText.gameObject.SetActive(false);
+                this.costTextUI.gameObject.SetActive(false);
             }
             else
             {
                 this.gameObject.GetComponent<Button>().interactable = true;
-                this.costText.gameObject.SetActive(true);
+                this.costTextUI.gameObject.SetActive(true);
             }
         }
     }
 
     public void ManageRequest() // Receive input from buttons, manage the request
     {
-        int cash = hm.getScoreManager().GetComponent<ScoreManager>().getActualCash();
+        ScoreManager scoreManager = gameManager.getScoreManager();
+        int cash = scoreManager.getActualCash();
 
         if(cash > cost)
         {
             if (healsPlayer)
             {
-                hm.getPlayer().GetComponent<Player>().setPercentageLife((int)(myPercentage * 100));
-                hm.getScoreManager().GetComponent<ScoreManager>().removeCash(cost);
+                Player player = gameManager.getPlayerInstance().GetComponent<Player>();
+                player.setPercentageLife((int)(myPercentage * 100));
+                scoreManager.removeCash(cost);
             }
             else if (healsBase)
             {
-                hm.getStation().GetComponent<PlayerBase>().setPercentageLife((int)(myPercentage * 100));
-                hm.getScoreManager().GetComponent<ScoreManager>().removeCash(cost);
+                PlayerBase station = gameManager.getStationInstance().GetComponent<PlayerBase>();
+                station.setPercentageLife((int)(myPercentage * 100));
+                scoreManager.removeCash(cost);
             }
         }
         else
         {
-            hm.startCashWarning();
+            healsManager.GetComponent<HealsManager>().startCashWarning();
         }
 
-        hm.updateVariables();
-        hm.updateButtonsActive();
+        healsManager.GetComponent<HealsManager>().updateVariables();
+        healsManager.GetComponent<HealsManager>().updateButtonsStatus();
     }
 }

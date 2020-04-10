@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class HealsManager : MonoBehaviour
 {
-
+    // Variabili generali //
     private GameObject player;
     private GameObject station;
-    private GameObject gameManager;
-    [SerializeField] GameObject scoreManager;
-    [SerializeField] GameObject[] HealButtons;
-    [SerializeField] Text notEnoughCashUI;
+    public GameObject scoreManager;
+    public GameObject[] HealButtons;
+    private Coroutine warningCoroutine;
 
+    // UIs elements //
+    public Text notEnoughCashUI;
+
+    // variabili di Player/Station utilizzate per il calcolo dei costi relativi all'healing
     private float playerLife;
     private float playerMaxLife;
     private float stationLife;
@@ -20,16 +23,18 @@ public class HealsManager : MonoBehaviour
     private float playerLifePercentage;
     private float stationLifePercentage;
 
-    private Coroutine warningCoroutine;
+    // sub-modules
+    public GameObject HealsUI;
+    private GameManager gameManager;
 
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        player = gameManager.GetComponent<GameManager>().getPlayerInstance();
-        station = gameManager.GetComponent<GameManager>().getStationInstance();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        player = gameManager.getPlayerInstance();
+        station = gameManager.getStationInstance();
 
         updateVariables();
-        CashWarning(false);
+        EnableDisableCashWarning(false);
     }
 
     void Update()
@@ -38,20 +43,16 @@ public class HealsManager : MonoBehaviour
 
     public void updateVariables()
     {
-       gameManager = GameObject.FindGameObjectWithTag("GameManager");
-       player = gameManager.GetComponent<GameManager>().getPlayerInstance();
-       station = gameManager.GetComponent<GameManager>().getStationInstance();
+        playerLife = player.GetComponent<Player>().getLife();
+        playerMaxLife = player.GetComponent<Player>().getMaxLife();
+        playerLifePercentage = (playerLife / playerMaxLife);
 
-       playerLife = player.GetComponent<Player>().getLife();
-       playerMaxLife = player.GetComponent<Player>().getMaxLife();
-       playerLifePercentage = (playerLife / playerMaxLife);
-
-       stationLife = station.GetComponent<PlayerBase>().getLife();
-       stationMaxLife = station.GetComponent<PlayerBase>().getMaxLife();
-       stationLifePercentage = (stationLife / stationMaxLife);
+        stationLife = station.GetComponent<PlayerBase>().getLife();
+        stationMaxLife = station.GetComponent<PlayerBase>().getMaxLife();
+        stationLifePercentage = (stationLife / stationMaxLife);
     }
 
-    public void updateButtonsActive()
+    public void updateButtonsStatus()
     {
         for(int i = 0; i< HealButtons.Length; i++)
         {
@@ -60,61 +61,26 @@ public class HealsManager : MonoBehaviour
         }
     }
 
-    void CashWarning(bool value)
+    void EnableDisableCashWarning(bool value)
     {
         notEnoughCashUI.gameObject.SetActive(value);
     }
-
+    
+    // implementa una sorta di pop-up per il messaggio di "soldi non sufficienti" che dura 2sec
     public IEnumerator CashWarningCoroutine()
     {
-        CashWarning(true);
+        EnableDisableCashWarning(true);
         yield return new WaitForSeconds(2);
-        CashWarning(false);
+        EnableDisableCashWarning(false);
         warningCoroutine = null;
     }
 
     public void startCashWarning()
     {
-        if(warningCoroutine == null)
+        if(warningCoroutine == null) // startala solo se non c'è già una courotuine di questo tipo attiva...
         {
             warningCoroutine = StartCoroutine(CashWarningCoroutine());
         }
-
-    }
-
-    public GameObject getPlayer()
-    {
-        return player;
-    }
-
-    public GameObject getStation()
-    {
-        return station;
-    }
-
-    public GameObject getScoreManager()
-    {
-        return scoreManager;
-    }
-
-    public float getPlayerMaxLife()
-    {
-        return playerMaxLife;
-    }
-
-    public float getPlayerLife()
-    {
-        return playerLife;
-    }
-
-    public float getBaseMaxLife()
-    {
-        return stationMaxLife;
-    }
-
-    public float getBaseLife()
-    {
-        return stationLife;
     }
 
     public float getStationLifePercentage()
@@ -125,5 +91,15 @@ public class HealsManager : MonoBehaviour
     public float getPlayerLifePercentage()
     {
         return playerLifePercentage;
+    }
+
+    public GameObject getHealsUI()
+    {
+        return HealsUI;
+    }
+
+    public void enableDisableHealsUI(bool value)
+    {
+        HealsUI.SetActive(value);
     }
 }

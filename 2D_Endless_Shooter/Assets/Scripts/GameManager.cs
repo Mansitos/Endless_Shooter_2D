@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     private WavesManager wavesManager;
     private ScoreManager scoreManager;
     private UpgradesManager upgradesManager;
-    private MainHUDManager mainHUDManager; 
+    private MainHUDManager mainHUDManager;
+    private HealsManager healsManager;
 
     // variabili relative alla meccanica di pausa (tasto ESC)
     public GameObject PauseMenuUI;       // Istanza dell'UI di pausa da mostrare quando pause = true
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
         upgradesManager = GameObject.FindGameObjectWithTag("UpgradesManager").GetComponent<UpgradesManager>();
         mainHUDManager = GameObject.FindGameObjectWithTag("MainHUD").GetComponent<MainHUDManager>();
+        healsManager = GameObject.FindGameObjectWithTag("HealsManager").GetComponent<HealsManager>();
     }
 
     void initializeUIsSavedStatus()
@@ -135,5 +137,10 @@ public class GameManager : MonoBehaviour
     public MainHUDManager getMainHUDManager()
     {
         return mainHUDManager;
+    }
+
+    public HealsManager getHealsManager()
+    {
+        return healsManager;
     }
 }

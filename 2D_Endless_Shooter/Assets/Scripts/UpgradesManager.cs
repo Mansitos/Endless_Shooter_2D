@@ -41,12 +41,13 @@ public class UpgradesManager : MonoBehaviour
     public void EnableDisableUpgradeMenuUI(bool value)
     {
         UpgradesMenuUI.SetActive(value);
+        gameManager.getHealsManager().enableDisableHealsUI(value);
         gameManager.getWavesManager().getNextWaveUI().SetActive(!value);
         gameManager.getPlayerInstance().SetActive(!value);
         if (value == true)
         {
             healsManager.updateVariables();
-            healsManager.updateButtonsActive();
+            healsManager.updateButtonsStatus();
         }
     }
 
