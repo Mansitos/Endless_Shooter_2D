@@ -36,13 +36,14 @@ public class Bullet : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-    // returns damage value of the bullet
     public int GetDamageValue()
-    {return damageValue;
+    {
+        return damageValue;
     }
 
-    // returns speed value of the bullet
     public float GetSpeed()
-    {return speed;}
+    {
+        return speed;
+    }
 
 }

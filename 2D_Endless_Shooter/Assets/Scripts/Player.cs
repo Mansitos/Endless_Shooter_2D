@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     public int life = 10;                    // Vita dell'entità player (hitpoints)
     public int maxLife = 10;                 // Vita massima del player
     public float maxAllowedDistanceToBase;   // Massima distanza consentita dalla base.
-    public GameObject PlayerBase;            // Istanza della main base
     public int cashPerHeal;                  // Quanto costa curare un hit-point
 
     // VARIABILI DI MOVIMENTO //
@@ -61,7 +60,6 @@ public class Player : MonoBehaviour
         var newYPos = transform.position.y + deltaY;
 
         transform.position = new Vector2(newXPos, newYPos);
-
 
         // Z ROTATIONS MOVEMENTS // FOLLOW MOUSE CURSOR
         var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
@@ -112,7 +110,7 @@ public class Player : MonoBehaviour
     // Controlla la distanza del player rispetto alla base, nel caso ecceda, attiva il processo di "abortMission"
     void checkMaxDistance()
     {
-        float distance = Mathf.Abs(Vector2.Distance(PlayerBase.transform.position, transform.position));
+        float distance = Mathf.Abs(Vector2.Distance(gameManager.getStationInstance().transform.position, transform.position));
 
         if (distance > maxAllowedDistanceToBase)
         {

@@ -16,35 +16,33 @@ public class Destroyable : MonoBehaviour {
     public int scoreValue = 10;
     public int cashValue = 1;
 
-    private GameObject scoreManager;
+    private GameManager gameManager;
 
 	void Start () {
-        scoreManager = GameObject.FindGameObjectWithTag("ScoreManager");
-	}
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
 	
 	void Update () {	
 	}
 
-    // TO REWORK?
-    // take dame from x =  true/false for each tag
+    // Esegue un filtro sulle collisioni in base al tag dell'oggetto con cui collide; se è di un determinato tipo allora decrementane la vita.
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (immortal != true)
         {
-            if (gameObject.tag == "Entities" || gameObject.tag == "Enemy")
+            if (gameObject.tag == "Entities" || gameObject.tag == "Enemy")  // tag di oggetti distruggibili dal player
             {
-                if (collision.gameObject.tag != "EnemyFiring" && collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "Entities")
+                if (collision.gameObject.tag == "PlayerFiring")
                 {
                     life = life - collision.gameObject.GetComponent<Bullet>().GetDamageValue();
                 }
             }
         }
 
-        if (life <= 0)
+        if (life <= 0)  // vita azzerata, distruggi e dai al playe realativo score e cash
         {
-            ScoreManager sc = scoreManager.GetComponent<ScoreManager>();
-            sc.addCash(cashValue);
-            sc.addScore(scoreValue);
+            gameManager.getScoreManager().addCash(cashValue);
+            gameManager.getScoreManager().addScore(scoreValue);
             Destroy(this.gameObject);
         }
     }

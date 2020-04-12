@@ -1,3 +1,37 @@
-DONE | update heals buttons at ended wave
-DONE | hide next wave ui & upgrade while paused
-----------------------------------------------------
+TODO:
+
+REWORK UI:
+	-> refactoring/modularizzazione degli script/componenti
+	-> [DONE] -> Vita base e stazione a "barre"
+	-> [DONE] better font/UI polish
+	-> aggiunta di un radar
+	-> messaggio di base "under attack!"
+	-> Meccanica di pausa
+		-> ripresa dello stato della partita
+
+REWORK MOVIMENTI PLAYER:
+	->
+
+REWORK NAVICELLA PLAYER
+	-> customizzazione, navicella modulare
+
+REWORK NEMICI
+	-> standardizzazione/prefabs
+
+REWORK WAVES
+	->
+
+REWORK GRAFICI
+	-> effetto esplosioni
+	-> effetto danno subito
+	-> effetto particellare rocce, entità (quando subiscono danno)
+
+IMPLEMENTAZIONE DI UN SOUND-SYSTEM
+	-> suoni generici
+	-> musica background
+
+IMPLEMENTAZIONE DI UN SAVE/LOAD SYSTEM
+	->
+
+
+

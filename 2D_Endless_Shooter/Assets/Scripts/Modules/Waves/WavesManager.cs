@@ -16,12 +16,13 @@ public class WavesManager : MonoBehaviour {
     public GameObject[] waves;                   // Array contenente le waves in ordine di esecuzione
     private int waveIndex = 0;                   // Wave attualmente raggiunta (counter)
     private GameObject actualWave;               // Istanza della wave attualmente raggiunta (di indice waveIndex)
+    public bool debug = false;
 
     // UIs - realtivi alle waves //
     public GameObject NextWaveUI;         // NextWaveUI
     public GameObject ReturnToBaseUI;     // ReturnToBase alarm MENU UI
 
-    private GameManager gameManager;                // Game Manager Instance
+    private GameManager gameManager;      // Game Manager Instance
 
 	void Start () {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -46,7 +47,7 @@ public class WavesManager : MonoBehaviour {
         if (waveIndex <= waves.Length - 1)  // se non sono finite le wave
         {
             yield return new WaitForSeconds(timeToWaitAfterWaveStart);  // aspetta timeBetweenWaves dopo il click di "NEXT WAVE"
-            Debug.Log("Starting wave:" + (waveIndex + 1));
+            if (debug) { Debug.Log("Starting wave:" + (waveIndex + 1)); }
             actualWave = Instantiate(waves[waveIndex], transform.position, transform.rotation);
             actualWave.transform.SetParent(gameObject.transform);
             waveIndex++;
@@ -60,7 +61,6 @@ public class WavesManager : MonoBehaviour {
         gameManager.getStationInstance().GetComponent<PlayerBase>().SafeZoneSetActive(true);
         NextWaveUI.SetActive(value_2);
         ReturnToBaseUI.SetActive(value_3);
-
     }
 
     // Aggiorna l'UI delle waves
