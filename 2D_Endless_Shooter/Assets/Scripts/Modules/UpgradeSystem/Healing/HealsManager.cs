@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class HealsManager : MonoBehaviour
 {
     // Variabili generali //
-    private GameObject player;
-    private GameObject station;
+    private GameObject player;          // istanza del player
+    private GameObject station;         // istanza della base
     public GameObject scoreManager;
     public GameObject[] HealButtons;
     private Coroutine warningCoroutine;
@@ -15,7 +15,7 @@ public class HealsManager : MonoBehaviour
     // UIs elements //
     public Text notEnoughCashUI;
 
-    // variabili di Player/Station utilizzate per il calcolo dei costi relativi all'healing
+    // variabili di Player e Base(Station) utilizzate per il calcolo dei costi relativi all'healing
     private float playerLife;
     private float playerMaxLife;
     private float stationLife;
@@ -30,10 +30,15 @@ public class HealsManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        // inizializzazione dello script, ottengo le istanze di base e player
         player = gameManager.getPlayerInstance();
         station = gameManager.getStationInstance();
 
+        // Ottengo tutte le informazioni di cui lo script ha bisogno: vita del player, etc.
         updateVariables();
+
+        // inizializzo a false (inattivo) il testo di pop-up di avvertimento di cash insufficienti per l'healing richiesto
         EnableDisableCashWarning(false);
     }
 
@@ -41,6 +46,7 @@ public class HealsManager : MonoBehaviour
     {
     }
 
+    // Va ad aggiornare tutte le informazioni necessarie al corretto funzionamento dello script.
     public void updateVariables()
     {
         playerLife = player.GetComponent<Player>().getLife();
@@ -52,15 +58,17 @@ public class HealsManager : MonoBehaviour
         stationLifePercentage = (stationLife / stationMaxLife);
     }
 
+    // Setta i vari pulsanti di Healing come attivi o disattivati: ad esempio il pulsante "cura fino a 25%" deve essere DISATTIVO se la vita del player è già sopra il 25% etc.
     public void updateButtonsStatus()
     {
         for(int i = 0; i< HealButtons.Length; i++)
         {
-            HealButtons[i].GetComponent<HealButton>().CalculateCost();
-            HealButtons[i].GetComponent<HealButton>().UpdateIsActive();
+            HealButtons[i].GetComponent<HealButton>().CalculateCost();      // Calcola il costo per la cura rappresentata da quel pulsante
+            HealButtons[i].GetComponent<HealButton>().UpdateIsActive();     // Verifica se esso vada attivato o no
         }
     }
 
+    // Abilita o disabilita in base al parametro passato il messaggio di warning "Not enough cash", utilizzata dalla coroutine del "pop-up"
     void EnableDisableCashWarning(bool value)
     {
         notEnoughCashUI.gameObject.SetActive(value);

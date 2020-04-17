@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // VARAIBILI GENERALE //
-    public int life = 10;                    // Vita dell'entità player (hitpoints)
+    public int life;                    // Vita dell'entità player (hitpoints)
     public int maxLife = 10;                 // Vita massima del player
     public float maxAllowedDistanceToBase;   // Massima distanza consentita dalla base.
     public int cashPerHeal;                  // Quanto costa curare un hit-point
@@ -18,24 +18,20 @@ public class Player : MonoBehaviour
     // VARIABILI DI MOVIMENTO //
     public float movementSpeed;           // Fattore moltiplicativo della velocità velocità.
 
-    // MAIN WEAPON //
-    public GameObject mainWeaponProjectile;   // Prefab del proiettile da usare con la main weapon.
-    public float mainWeaponFireRate;          // Rateo di fuoco della main weapon. in RPM (colpi al min).
-    Coroutine MainWeaponFireCoroutine;        // Reference alla coroutine di shooting della main weapon.
-    public GameObject shootingPoint;          // Punto dove istanziare i proiettili sparati
-
     // Variabili relative alla meccanica AbortMission (massima distanza dalla base)
     Coroutine abortMission = null;
     public int returnMaxTime = 10;            // tempo a disposizione per il player di tornare in missione prima del game over
 
-
-
     // ALTRE VARIABILI //
-    GameManager gameManager;
+    private GameManager gameManager;
+    public GameObject ship;
 
 
     void Start()
     {
+        // inizializzo la vita guardando le statistiche del chassis montato
+        maxLife = life = ship.GetComponent<Ship>().getChassis().GetComponent<Chassis>().getLifePoints();
+
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         UpdateLifeUI(); // Inizializza l'UI della vita
     }
@@ -43,7 +39,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-        MainWeaponFireInput();
+        //MainWeaponFireInput();
         checkMaxDistance();
     }
 
@@ -65,29 +61,6 @@ public class Player : MonoBehaviour
         var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-
-    // Coroutine del firing.
-    IEnumerator AutomaticFire()
-    {
-        while (true)
-        {
-            Instantiate(mainWeaponProjectile, shootingPoint.transform.position, this.transform.rotation);
-            yield return new WaitForSeconds(60 / mainWeaponFireRate);
-        }
-    }
-
-    // Funzione di gestione del processo di fuoco. Rileva gli input e starta/stoppa la coroutine di fuoco.
-    private void MainWeaponFireInput()
-    {
-        if (Input.GetButtonDown("MainWeaponFire"))
-        {
-            MainWeaponFireCoroutine = StartCoroutine(AutomaticFire());
-        }
-        if (Input.GetButtonUp("MainWeaponFire"))
-        {
-            StopCoroutine(MainWeaponFireCoroutine);
-        }
     }
 
     // Rileva gli HIT dai proiettili nemici. Controlla inoltre la vita ad ogni danno subito.

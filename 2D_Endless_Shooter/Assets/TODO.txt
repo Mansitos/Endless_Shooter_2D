@@ -1,25 +1,31 @@
 TODO:
 
 REWORK UI:
-	-> refactoring/modularizzazione degli script/componenti
+	-> [DONE] refactoring/modularizzazione degli script/componenti
 	-> [DONE] -> Vita base e stazione a "barre"
 	-> [DONE] better font/UI polish
 	-> aggiunta di un radar
 	-> messaggio di base "under attack!"
 	-> Meccanica di pausa
 		-> ripresa dello stato della partita
+	-> Options menu
+	-> [DONE] rework meccanica di healing
+		-> [DONE] Ui rework
+		-> [DONE] scripts rework (healing and buttons)
 
 REWORK MOVIMENTI PLAYER:
-	->
+	-> physics based?
 
 REWORK NAVICELLA PLAYER
 	-> customizzazione, navicella modulare
 
 REWORK NEMICI
 	-> standardizzazione/prefabs
+	-> NEW AI
+		-> approfondisci il tema (automa a stati finiti?)
 
 REWORK WAVES
-	->
+	-> boss
 
 REWORK GRAFICI
 	-> effetto esplosioni

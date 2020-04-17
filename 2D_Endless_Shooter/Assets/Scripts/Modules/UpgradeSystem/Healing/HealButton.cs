@@ -1,18 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealButton : MonoBehaviour
 {
-    public Text costTextUI;
-    private float cost;
-    public float myPercentage;
-    public GameObject healsManager;
-    public bool healsPlayer;
-    public bool healsBase;
+    // Sub-Script per i singoli pulsanti relativi allo script HealsManager
+    // Ciascun pulsante gestice l'input di cura relativo alle sue caratteristiche (pulsate di cura del 25% della vita del player; ad esempio)
 
-    private GameManager gameManager;
+    // Variabili generali //
+    public Text costTextUI;     // Testo indicante il costo 
+    private float cost;         // costo della cura
+    public float myPercentage;  // percentuale di cura relativa a questo pulsante (ad esempio 25% -> questo pulsante cura fino al 25%)
+    public GameObject healsManager; // istanza del parent script
+
+    public bool healsPlayer;        // -> true -> cura il player    (dovrebbe essere solo uno dei due true)
+    public bool healsBase;          // -> true -> cura la base      (dovrebbe essere solo uno dei due true)
+
+    private GameManager gameManager;        // game manager
 
     void Start()
     {
@@ -21,9 +27,11 @@ public class HealButton : MonoBehaviour
         UpdateIsActive();
     }
 
+
     void Update()
     {  
     }
+
 
     void updateCostTextUI()
     {
@@ -32,20 +40,20 @@ public class HealButton : MonoBehaviour
 
     public void CalculateCost()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();  // needs to be there because this functions is called before Start()
         healsManager.GetComponent<HealsManager>().updateVariables();
 
         if (healsPlayer) {
             Player player = gameManager.getPlayerInstance().GetComponent<Player>();
             float playerMaxLife = player.getMaxLife();
             float lifeToHeal = playerMaxLife * myPercentage - player.getLife();
-            cost = lifeToHeal * player.getPricePerHeal();
+            cost = Mathf.Ceil(lifeToHeal * player.getPricePerHeal());
         }else if (healsBase)
         {
             PlayerBase station = gameManager.getStationInstance().GetComponent<PlayerBase>();
             float BaseMaxLife = station.getMaxLife();
             float lifeToHeal = BaseMaxLife * myPercentage - station.getLife();
-            cost = lifeToHeal * station.getPricePerHeal();
+            cost = Mathf.Ceil(lifeToHeal * station.getPricePerHeal());
         }
 
         updateCostTextUI();

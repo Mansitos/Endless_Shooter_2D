@@ -21,6 +21,7 @@ TagManager:
   - MainHUD
   - UpgradeMenuUI
   - HealsUI
+  - OptionsMenu
   layers:
   - Default
   - TransparentFX
@@ -57,4 +58,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UILayer
+    uniqueID: 1668884677
+    locked: 0
+  - name: LevelLayer
+    uniqueID: 3177580087
     locked: 0
