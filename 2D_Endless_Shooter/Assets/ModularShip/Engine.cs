@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Engine : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /*  Script per la gestione del componente ENGINE per la ship modulare
+    */
+
+
     void Start()
-    {
-        
+    {    
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        
+    {     
     }
 }

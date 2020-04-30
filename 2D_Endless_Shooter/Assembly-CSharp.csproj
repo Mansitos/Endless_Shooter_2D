@@ -66,6 +66,7 @@
     <Compile Include="Assets\ModularShip\Chassis.cs" />
     <Compile Include="Assets\ModularShip\Engine.cs" />
     <Compile Include="Assets\ModularShip\Ship.cs" />
+    <Compile Include="Assets\ModularShip\Slot.cs" />
     <Compile Include="Assets\ModularShip\Weapon.cs" />
     <Compile Include="Assets\ModularShip\Wings.cs" />
     <Compile Include="Assets\OptionsMenu.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="Assets\Scripts\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Turret\Turret.cs" />
     <Compile Include="Assets\Scripts\Turret\TurretRadar.cs" />
-    <Compile Include="Assets\Slot.cs" />
     <None Include="Assets\SpritesArchive\crosshairpack_kenney\Size.txt" />
     <None Include="Assets\SpritesArchive\uipack-space\Spritesheet\uipackSpace_sheet.xml" />
     <None Include="Assets\SpritesArchive\kenney_spaceshooterextension\Spritesheet\spaceShooter2_spritesheet_2X.xml" />

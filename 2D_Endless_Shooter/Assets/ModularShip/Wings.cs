@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Wings : MonoBehaviour
 {
+    /*  Script per la gestione del componente WINGS per la ship modulare
+    */
+
     public GameObject leftWing;
     public GameObject rightWing;
 
@@ -23,9 +26,15 @@ public class Wings : MonoBehaviour
         return weaponsSlots;
     }
 
-    public void setXOffset(float offset)
+    // posiziona le due ali nella posizione corretta (quella passata come parametro dal chiamante, che tipiamente è lo chassies che possiede 2 AttrachPoint per le ali)
+    public void InitializeWingsPositions(Transform transform, string type)
     {
-        leftWing.transform.position = new Vector3(-offset, 0, 0);
-        rightWing.transform.position = new Vector3(offset, 0, 0);
+        if(type == "left")
+        {
+            leftWing.transform.position = transform.position;
+        }else if(type == "right")
+        {
+            rightWing.transform.position = transform.position;
+        }
     }
 }

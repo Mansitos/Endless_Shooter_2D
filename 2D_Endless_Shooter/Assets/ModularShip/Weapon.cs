@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    /*  Script per la gestione del componente WINGS per la ship modulare
+    */
+
     public GameObject mainWeaponProjectile;   // Prefab del proiettile da usare con la main weapon.
     public float mainWeaponFireRate;          // Rateo di fuoco della main weapon. in RPM (colpi al min).
     Coroutine MainWeaponFireCoroutine;        // Reference alla coroutine di shooting della main weapon.
@@ -41,5 +44,4 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(60 / mainWeaponFireRate);
         }
     }
-
 }

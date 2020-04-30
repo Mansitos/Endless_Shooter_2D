@@ -22,6 +22,8 @@ TagManager:
   - UpgradeMenuUI
   - HealsUI
   - OptionsMenu
+  - weapon
+  - engine
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,10 @@ REWORK MOVIMENTI PLAYER:
 
 REWORK NAVICELLA PLAYER
 	-> customizzazione, navicella modulare
+		-> [DONE] strutturazione del codice, primi moduli, bozza
+		-> UI che permette di interagire con questo sistema
+		-> come gestire la compatibilità tra componenti? -> parametro TIER?
+		-> gestione tech tree, sblocchi
 
 REWORK NEMICI
 	-> standardizzazione/prefabs

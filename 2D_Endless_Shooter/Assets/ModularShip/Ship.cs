@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+
+    /*  Script per la gestione della SHIP modulare
+    */
+
     public string name;
     public GameObject chassis;
     

@@ -4,39 +4,53 @@ using UnityEngine;
 
 public class Chassis : MonoBehaviour
 {
+    /*  Script per la gestione del componente CHASSIES per la ship modulare
+    */
+
     public string name;
     public int lifepoints = 200;
 
-    public GameObject[] weaponsSlots;
-    public GameObject[] enginesSlots;
+    public GameObject[] weaponsSlots;   // lista di slot per weapons presenti nello chassie
+    public GameObject[] enginesSlots;   // lista di slot per engines presenti nello chassie
 
-    public GameObject[] weapons;
-    public GameObject[] engines;
+    public GameObject[] weapons;    // lista di weapons montate
+    public GameObject[] engines;    // lista di engines montati
 
-    public GameObject wings;
-    public float wingsXoffsetPosToCenter = 0;
-    public float wingsYoffsetPosToCenter = 0;
-
+    public GameObject wings;        // istanza del sotto-componente wings
+    public GameObject leftWingAttachPoint;  // punti di attracco per le wings, sinistro e destro
+    public GameObject rightWingAttachPoint;
 
 
     void Start()
     {
         GetWingsWeaponsSlots();
-        GetWeaponsIstances();
-        //GetGadgetsIstances();
-        GetWeaponsInstances();
-        InitializeWingsPositions();
 
         IstantiateSlotObjects();
+
+        GetWeaponsIstances();
+        GetGadgetsIstances();
+        GetEnginesInstances();
+
+        InitializeWingsPositions();
     }
 
+    void Update()
+    {
+    }
+
+    public void GetGadgetsIstances()
+    {
+        // todo, gadgets mechenics -> shields etc.
+    }
+
+    // posiziona le wings nella posizione corretta rispetto allo chassie e i suoi attrach point
     void InitializeWingsPositions()
     {
-        wings.transform.position = new Vector3(0,wingsYoffsetPosToCenter,0);
-        wings.GetComponent<Wings>().setXOffset(wingsXoffsetPosToCenter);
-
+        wings.GetComponent<Wings>().InitializeWingsPositions(leftWingAttachPoint.transform, "left");
+        wings.GetComponent<Wings>().InitializeWingsPositions(rightWingAttachPoint.transform, "right");
     }
 
+    // una volta assemblata la ship nel modo corretto, istanzia tutti gli oggetti (armi, motori etc.) presenti nei vari slot (qualora fossero presenti = slot non vuoti)
     public void IstantiateSlotObjects()
     {
         for(int i = 0; i<= weaponsSlots.Length-1; i++)
@@ -50,6 +64,7 @@ public class Chassis : MonoBehaviour
         }
     }
 
+    // ottieni un riferimento agli slot delle wings
     public void GetWingsWeaponsSlots()
     {
         GameObject[] wingsSlots = wings.GetComponent<Wings>().getWeaponsSlots();
@@ -59,9 +74,9 @@ public class Chassis : MonoBehaviour
         wingsSlots.CopyTo(newArray, weaponsSlots.Length);
 
         weaponsSlots = newArray;
-
     }
 
+    // ottieni un riferimento agli oggetti posizionati negli slot (per le weapons)
     void GetWeaponsIstances()
     {
         int qnty = weaponsSlots.Length;
@@ -76,7 +91,8 @@ public class Chassis : MonoBehaviour
         }
     }
 
-    void GetWeaponsInstances()
+    // ottieni un riferimento agli oggetti posizionati negli slot (per gli engines)
+    void GetEnginesInstances()
     {
         int qnty = enginesSlots.Length;
         engines = new GameObject[qnty];
@@ -88,10 +104,6 @@ public class Chassis : MonoBehaviour
                 engines[i] = enginesSlots[i].GetComponent<Slot>().getObjectInside();
             }
         }
-    }
-
-    void Update()
-    {    
     }
 
     public int getLifePoints()
@@ -128,6 +140,4 @@ public class Chassis : MonoBehaviour
     {
 
     }
-
-
 }
